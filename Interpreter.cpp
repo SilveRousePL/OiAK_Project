@@ -1,7 +1,7 @@
 /*
  * Interpreter.cpp
  *
- *  Created on: 9 kwi 2018
+ *  Created on: 10 kwi 2018
  *      Author: darek
  */
 

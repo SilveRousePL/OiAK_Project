@@ -5,11 +5,11 @@
  *      Author: darek
  */
 #include <iostream>
+#include "Operator.h"
+#include "Constant.h"
+#include "Variable.h"
 
 int main(int argc, char **argv) {
-	std::cout << "Własny język programowania" << std::endl;
+
 	return 0;
 }
-
-//REG EXP
-//Klasy obsługujące dane wyrażenia
