@@ -8,12 +8,12 @@
 #ifndef FILE_H_
 #define FILE_H_
 #include <fstream>
-#include "Exceptions.hpp"
+#include "Exceptions.h"
 
 class File {
-	std::fstream handle;
+	std::ifstream handle;
 	std::string filename;
-	uint32_t number_of_lines;
+	uint32_t n_lines;
 
 public:
 	File(std::string filename);
@@ -21,9 +21,10 @@ public:
 
 	uint32_t getNumber();
 	std::string getLine(uint32_t line);
+	std::string getText();
 
 private:
-	void calculateLinesNumber();
+	void LNumber();
 };
 
 #endif /* FILE_H_ */

@@ -45,4 +45,11 @@ public:
 	}
 };
 
+class FileException: public Exception {
+public:
+	FileException(std::string comment) :
+			Exception(comment) {
+	}
+};
+
 #endif /* EXCEPTIONS_H_ */
