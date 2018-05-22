@@ -38,9 +38,23 @@ public:
 	}
 };
 
+class NotParsed: public Exception {
+public:
+	NotParsed(std::string comment) :
+			Exception(comment) {
+	}
+};
+
 class VariableNotFound: public Exception {
 public:
 	VariableNotFound(std::string comment) :
+			Exception(comment) {
+	}
+};
+
+class ArithmeticException: public Exception {
+public:
+	ArithmeticException(std::string comment) :
 			Exception(comment) {
 	}
 };

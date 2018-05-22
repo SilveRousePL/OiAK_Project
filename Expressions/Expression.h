@@ -7,13 +7,16 @@
 
 #ifndef EXPRESSION_H_
 #define EXPRESSION_H_
+#include "../Exceptions.h"
 
-template<class T>
+//template<class T>
 class Expression {
 public:
-	Expression();
-	virtual ~Expression();
-	virtual T getValue() = 0;
+	Expression() {
+	}
+	virtual ~Expression() {
+	}
+	virtual int get() = 0;
 };
 
 #endif /* EXPRESSION_H_ */

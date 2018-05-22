@@ -18,8 +18,12 @@ class Variable: Expression<T> {
 
 	Variable();
 
-	T getValue() override {
-		return memory.at(name);
+	T get() override {
+		try {
+			return memory.at(name);
+		} catch(...) {
+			throw VariableNotFound("");
+		}
 	}
 };
 

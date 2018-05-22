@@ -9,16 +9,17 @@
 #define CONSTANT_H_
 #include "Expression.h"
 
-template<class T>
-class Constant: Expression<T> {
-	T value;
+//template<class T>
+class Constant: public Expression {
+	int value;
 
 public:
-	Constant(T v) :
+	Constant(int v) :
 			value(v) {
 	}
-	virtual ~Constant();
-	T getValue() override {
+	~Constant() {
+	}
+	int get() override {
 		return value;
 	}
 };
