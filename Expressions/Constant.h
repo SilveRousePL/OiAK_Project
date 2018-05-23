@@ -11,15 +11,15 @@
 
 //template<class T>
 class Constant: public Expression {
-	int value;
+	int64_t value;
 
 public:
-	Constant(int v) :
+	Constant(int64_t v) :
 			value(v) {
 	}
 	~Constant() {
 	}
-	int get() override {
+	int64_t get() override {
 		return value;
 	}
 };

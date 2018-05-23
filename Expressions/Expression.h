@@ -16,7 +16,7 @@ public:
 	}
 	virtual ~Expression() {
 	}
-	virtual int get() = 0;
+	virtual int64_t get() = 0;
 };
 
 #endif /* EXPRESSION_H_ */

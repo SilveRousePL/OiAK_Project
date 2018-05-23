@@ -27,7 +27,7 @@ public:
 		if (right != nullptr)
 			delete right;
 	}
-	int get() override { //Pod wstawki ASM
+	int64_t get() override { //Pod wstawki ASM
 		if (symbol == "==")
 			return equal();
 		if (symbol == "!=")
@@ -45,21 +45,21 @@ public:
 		throw UnknownOperator("");
 	}
 private:
-	int add() {
+	int64_t add() {
 		return left->get() + right->get();
 	}
-	int sub() {
+	int64_t sub() {
 		return left->get() - right->get();
 	}
-	int mul() {
+	int64_t mul() {
 		return left->get() * right->get();
 	}
-	int div() {
+	int64_t div() {
 		if (right->get() == 0)
 			throw ArithmeticException("");
 		return left->get() / right->get();
 	}
-	int mod() {
+	int64_t mod() {
 		if (right->get() == 0)
 			throw ArithmeticException("");
 		return left->get() % right->get();
@@ -67,10 +67,10 @@ private:
 		 return value - trunc(value / modulus) * modulus;
 		 }(left->get(), right->get());*/
 	}
-	int not_equal() {
+	int64_t not_equal() {
 		return left->get() != right->get();
 	}
-	int equal() {
+	int64_t equal() {
 		return left->get() == right->get();
 	}
 };

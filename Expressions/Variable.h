@@ -9,19 +9,21 @@
 #define VARIABLE_H_
 #include "Expression.h"
 #include <string>
-#include <map>
 
-template<class T>
-class Variable: Expression<T> {
-	static std::map<std::string, T> memory;
+//template<class T>
+class Variable: public Expression {
 	std::string name;
+	std::map<std::string, int64_t>* memory;
 
-	Variable();
+public:
+	Variable(std::string name, std::map<std::string, int64_t>* memory) :
+			name(name), memory(memory) {
+	}
 
-	T get() override {
+	int64_t get() override {
 		try {
-			return memory.at(name);
-		} catch(...) {
+			return memory->at(name);
+		} catch (...) {
 			throw VariableNotFound("");
 		}
 	}

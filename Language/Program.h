@@ -15,7 +15,7 @@ public:
 	}
 	virtual ~Program() {
 	}
-	virtual void eval(std::map<std::string, int> & mem) = 0;
+	virtual void execute(std::map<std::string, int64_t>* memory) = 0;
 };
 
 #endif /* LANGUAGE_PROGRAM_H_ */

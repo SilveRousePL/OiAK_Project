@@ -5,14 +5,36 @@
  *      Author: darek
  */
 #include <iostream>
-#include "Operator.h"
-#include "Constant.h"
-#include "Variable.h"
+#include "Parser.h"
 
-int main(int argc, char **argv) {
-	Expression<bool> * ex1 = new Constant<bool>(0);
-	Expression<bool> * ex2 = new Constant<bool>(1);
-	Expression<bool> * ex3 = new Operator<bool>("%", ex1, ex2);
-	std::cout << ex1->get() << "%" << ex2->get() << "=" << ex3->get() << std::endl;
+int main(int argc, char** argv) {
+	std::string args(*argv);
+
+	std::map<std::string, int64_t>* memory = new std::map<std::string, int64_t>;
+	while (true) {
+		std::string command;
+		std::cout << "> ";
+		getline(std::cin, command);
+		if (command.length() == 0)
+			continue;
+		try {
+			Parser p(command, memory);
+			Expression * exp = p.parseExpression();
+			std::cout << "  = " << exp->get() << std::endl;
+		} catch (NotParsed & e) {
+			std::cerr << " Parsed Error!" << std::endl;
+		} catch (VariableNotFound & e) {
+			std::cerr << " Variable not found!" << std::endl;
+		} catch (...) {
+			std::cerr << "Unknown Error!" << std::endl;
+		}
+	}
+	delete memory;
+
+	Expression * ex1 = new Constant(20);
+	Expression * ex2 = new Constant(7);
+	Expression * ex3 = new Operator("+", ex1, ex2);
+	std::cout << ex1->get() << "+" << ex2->get() << "=" << ex3->get()
+			<< std::endl;
 	return 0;
 }
