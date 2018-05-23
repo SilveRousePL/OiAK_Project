@@ -10,12 +10,12 @@
 #include <string>
 #include <map>
 /*
-#include "Expressions/Expression.h"
-#include "Expressions/Constant.h"
-#include "Expressions/Operator.h"
-#include "Expressions/Variable.h"
-#include "Language/Program.h"
-*/
+ #include "Expressions/Expression.h"
+ #include "Expressions/Constant.h"
+ #include "Expressions/Operator.h"
+ #include "Expressions/Variable.h"
+ #include "Language/Program.h"
+ */
 #include "headers.h"
 
 //TODO: Parser
@@ -34,6 +34,8 @@ public:
 	Expression* parseExpression();
 	Expression* parseSum();
 	Expression* parseMult();
+	Expression* parseLogic();
+	Expression* parseComp();
 	Expression* parseTerm();
 	Expression* parseConstant();
 	Expression* parseVariable();

@@ -42,7 +42,7 @@ public:
 			return sub();
 		if (symbol == "+")
 			return add();
-		throw UnknownOperator("");
+		throw UnknownOperator("Unknown operator!");
 	}
 private:
 	int64_t add() {
@@ -56,12 +56,12 @@ private:
 	}
 	int64_t div() {
 		if (right->get() == 0)
-			throw ArithmeticException("");
+			throw ArithmeticException("DIV/0!");
 		return left->get() / right->get();
 	}
 	int64_t mod() {
 		if (right->get() == 0)
-			throw ArithmeticException("");
+			throw ArithmeticException("DIV/0!");
 		return left->get() % right->get();
 		/*return [](T value, T modulus)->T {
 		 return value - trunc(value / modulus) * modulus;

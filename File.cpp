@@ -11,10 +11,10 @@ File::File(std::string filename) :
 		filename(filename), n_lines(0) {
 	handle.open(filename, std::ios::in);
 	if (!handle.is_open())
-		throw FileException("");
+		throw FileException("I couldn't open file");
 	LNumber();
 	if (n_lines == 0)
-		throw FileException("");
+		throw FileException("This file is empty");
 
 }
 
@@ -40,7 +40,7 @@ std::string File::getLine(uint32_t line) {
 std::string File::getText() {
 	handle.seekg(0);
 	std::string tmp = "";
-	getline(handle, tmp, (char)EOF);
+	getline(handle, tmp, (char) EOF);
 	handle.seekg(0);
 	return tmp;
 }

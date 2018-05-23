@@ -22,19 +22,19 @@ int main(int argc, char** argv) {
 			Expression * exp = p.parseExpression();
 			std::cout << "  = " << exp->get() << std::endl;
 		} catch (NotParsed & e) {
-			std::cout << " Parsed Error!" << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (VariableNotFound & e) {
-			std::cout << " Variable not found!" << std::endl;
+			std::cout << e.what() << std::endl;
 		} catch (...) {
 			std::cout << " Unknown Error!" << std::endl;
 		}
 	}
 	delete memory;
 
-	Expression * ex1 = new Constant(20);
-	Expression * ex2 = new Constant(7);
-	Expression * ex3 = new Operator("+", ex1, ex2);
-	std::cout << ex1->get() << "+" << ex2->get() << "=" << ex3->get()
-			<< std::endl;
+	/*Expression * ex1 = new Constant(20);
+	 Expression * ex2 = new Constant(7);
+	 Expression * ex3 = new Operator("+", ex1, ex2);
+	 std::cout << ex1->get() << "+" << ex2->get() << "=" << ex3->get()
+	 << std::endl;*/
 	return 0;
 }

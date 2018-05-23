@@ -24,7 +24,7 @@ public:
 		try {
 			return memory->at(name);
 		} catch (...) {
-			throw VariableNotFound("");
+			throw VariableNotFound("Variable not found!");
 		}
 	}
 };

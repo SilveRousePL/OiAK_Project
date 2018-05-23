@@ -60,6 +60,14 @@ Expression* Parser::parseMult() {
 	return exp;
 }
 
+Expression* Parser::parseLogic() {
+	//TODO: Logical operators (!, &, |)
+}
+
+Expression* Parser::parseComp() {
+	//TODO: Compare operators (==, !=)
+}
+
 Expression* Parser::parseTerm() {
 	char curr = getNext();
 	if (curr == '(')
@@ -69,7 +77,7 @@ Expression* Parser::parseTerm() {
 	else if (isalpha(curr))
 		return parseVariable();
 	else
-		throw NotParsed("a term expected");
+		throw NotParsed("unexpected character");
 }
 
 Expression* Parser::parseConstant() {
@@ -121,8 +129,8 @@ Program* Parser::parseAssign(std::string value) {
 	if (c == '=') {
 		position++;
 		Expression* exp = parseSum();
-		/*return new*/ Assign a(value, exp);
+		/*return new*/Assign a(value, exp);
 		a.execute(memory);
 	} /*else
-		throw NotParsed("'=' expected");*/
+	 throw NotParsed("'=' expected");*/
 }
