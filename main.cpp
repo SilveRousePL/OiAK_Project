@@ -22,11 +22,11 @@ int main(int argc, char** argv) {
 			Expression * exp = p.parseExpression();
 			std::cout << "  = " << exp->get() << std::endl;
 		} catch (NotParsed & e) {
-			std::cerr << " Parsed Error!" << std::endl;
+			std::cout << " Parsed Error!" << std::endl;
 		} catch (VariableNotFound & e) {
-			std::cerr << " Variable not found!" << std::endl;
+			std::cout << " Variable not found!" << std::endl;
 		} catch (...) {
-			std::cerr << "Unknown Error!" << std::endl;
+			std::cout << " Unknown Error!" << std::endl;
 		}
 	}
 	delete memory;

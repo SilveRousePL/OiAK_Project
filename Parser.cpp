@@ -80,19 +80,19 @@ Expression* Parser::parseConstant() {
 		position++;
 	}
 	/*if (text[position] == '.') {
-		double nf = 0;
-		uint64_t nfi = 0;
-		uint64_t i = 1;
-		position++;
-		while (isdigit(text[position])) {
-			nfi *= 10;
-			nfi += text[position] - '0';
-			i *= 10;
-			position++;
-		}
-		nf = n + ((double) nfi) / i;
-		return new Constant(nf);
-	}*/
+	 double nf = 0;
+	 uint64_t nfi = 0;
+	 uint64_t i = 1;
+	 position++;
+	 while (isdigit(text[position])) {
+	 nfi *= 10;
+	 nfi += text[position] - '0';
+	 i *= 10;
+	 position++;
+	 }
+	 nf = n + ((double) nfi) / i;
+	 return new Constant(nf);
+	 }*/
 	return new Constant(n);
 }
 
@@ -102,11 +102,12 @@ Expression* Parser::parseVariable() {
 		str.push_back(text[position]);
 		position++;
 	}
+	parseAssign(str);
 	return new Variable(str, memory);
 }
 
 Expression* Parser::parseParen() {
-	position++; // parse_term zapewnia, że wskaznik stoi na nawiasie otwierajacym '('
+	position++;
 	Expression* exp = parseSum();
 	if (getNext() == ')') {
 		position++;
@@ -120,7 +121,8 @@ Program* Parser::parseAssign(std::string value) {
 	if (c == '=') {
 		position++;
 		Expression* exp = parseSum();
-		return new Assign(value, exp);
-	} else
-		throw NotParsed("'=' expected");
+		/*return new*/ Assign a(value, exp);
+		a.execute(memory);
+	} /*else
+		throw NotParsed("'=' expected");*/
 }
