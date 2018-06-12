@@ -19,13 +19,15 @@ public:
 	Variable(std::string name, std::map<std::string, int64_t>* memory) :
 			name(name), memory(memory) {
 	}
-
 	int64_t get() override {
 		try {
 			return memory->at(name);
 		} catch (...) {
-			throw VariableNotFound("Variable not found!");
+			throw VariableNotFound("Variable '" + name + "' is not declared", 0);
 		}
+	}
+	std::string getName() {
+		return name;
 	}
 };
 

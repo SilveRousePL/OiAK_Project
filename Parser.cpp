@@ -25,13 +25,44 @@ void Parser::skipWhitespace() {
 		position++;
 }
 
+std::string Parser::parseIdentifier() {
+	std::string str;
+	while (isalpha(text[position]) || isdigit(text[position])) {
+		str.push_back(text[position]);
+		position++;
+	}
+	return str;
+}
+
+/*std::string Parser::parseOperator(std::vector<std::string> op) {
+ std::string str;
+ for (int i = 0; i < op.size(); i++) {
+ for (int j = 0; j < op[i].length(); j++) {
+ while (text[position] == ) {
+
+ }
+ }
+ }
+ while (text[position] == '=' || text[position] == '!'
+ || text[position] == '<' || text[position] == '>'
+ || text[position] == '+' || text[position] == '-'
+ || text[position] == '*' || text[position] == '/'
+ || text[position] == '%' || text[position] == ':'
+ || text[position] == '^' || text[position] == '&'
+ || text[position] == '|') {
+ str.push_back(text[position]);
+ position++;
+ }
+ return str;
+ }*/
+
 Expression* Parser::parseExpression() {
 	Expression* exp = parseSum();
 	if (getNext() == '\0')
 		return exp;
 	else {
 		delete exp;
-		throw NotParsed("");
+		throw ParserException("Unknown expression", position);
 	}
 	return exp;
 }
@@ -59,14 +90,26 @@ Expression* Parser::parseMult() {
 	}
 	return exp;
 }
+/*
+ Expression* Parser::parseLogic() {
+ //TODO: Logical operators (!, &, |)
+ }
 
-Expression* Parser::parseLogic() {
-	//TODO: Logical operators (!, &, |)
-}
+ Expression* Parser::parseComp() {
+ Expression* exp = parseTerm();
+ std::string curr = parseOperator(); //std::string(1, getNext());
+ while (curr == "==" || curr == "!=" || curr == "<" || curr == ">"
+ || curr == "<=" || curr == ">=") {
+ //position++;
+ Expression* f = parseTerm();
+ exp = new Operator(curr, exp, f);
+ curr = getNext();
+ }
+ return exp;
 
-Expression* Parser::parseComp() {
-	//TODO: Compare operators (==, !=)
-}
+ //TODO: Compare operators (=, !=, <, >, <=, >=)
+ }
+ */
 
 Expression* Parser::parseTerm() {
 	char curr = getNext();
@@ -77,7 +120,7 @@ Expression* Parser::parseTerm() {
 	else if (isalpha(curr))
 		return parseVariable();
 	else
-		throw NotParsed("unexpected character");
+		throw ParserException("Unexpected character", position);
 }
 
 Expression* Parser::parseConstant() {
@@ -110,7 +153,7 @@ Expression* Parser::parseVariable() {
 		str.push_back(text[position]);
 		position++;
 	}
-	parseAssign(str);
+	//parseAssign(str);
 	return new Variable(str, memory);
 }
 
@@ -121,7 +164,7 @@ Expression* Parser::parseParen() {
 		position++;
 		return exp;
 	} else
-		throw NotParsed("')' expected");
+		throw ParserException("')' expected", position);
 }
 
 Program* Parser::parseAssign(std::string value) {
@@ -129,8 +172,103 @@ Program* Parser::parseAssign(std::string value) {
 	if (c == '=') {
 		position++;
 		Expression* exp = parseSum();
-		/*return new*/Assign a(value, exp);
-		a.execute(memory);
-	} /*else
-	 throw NotParsed("'=' expected");*/
+		Program* a = new Assign(value, exp);
+		//a->execute(memory);
+		return a;
+	} else
+		throw ParserException("'=' expected", position);
+}
+
+Program* Parser::parseProgram() {
+	Program* p = parseBlock();
+	if (getNext() == 0)
+		return p;
+	else
+		throw ParserException("End of stream expected", position);
+}
+
+Program* Parser::parseBlock() {
+	Program* p = parseInstruction();
+	char c = getNext();
+	while (c != '}' && c != 0) {
+		Program* q = parseInstruction();
+		p = new Composition(p, q);
+		c = getNext();
+	}
+	return p;
+}
+
+Program* Parser::parseInstruction() {
+	char c = getNext();
+	if (c == '{') {
+		position++;
+		Program* p = parseBlock();
+		if (getNext() == '}') {
+			position++;
+			return p;
+		} else
+			throw ParserException("'}' expected", position);
+	} else if (isalpha(c)) {
+		std::string str = parseIdentifier();
+		if (str == "read")
+			return parseRead();
+		else if (str == "write")
+			return parseWrite();
+		else if (str == "if")
+			return parseIf();
+		else if (str == "for")
+			return parseFor();
+		else if (str == "while")
+			return parseWhile();
+		else if (str == "skip")
+			return new Skip();
+		else
+			return parseAssign(str);
+	} else
+		throw ParserException("identifier or a keyword expected", position);
+}
+
+Program* Parser::parseRead() {
+	char c = getNext();
+	if (isalpha(c)) {
+		std::string s = parseIdentifier();
+		return new Read(s);
+	} else
+		throw ParserException("", position);
+}
+
+Program* Parser::parseWrite() {
+	char c = getNext();
+	if (isalpha(c)) {
+		std::string s = parseIdentifier();
+		return new Write(s);
+	} else
+		throw ParserException("variable expected", position);
+}
+
+Program* Parser::parseIf() {
+	Expression* e = parseSum();
+	Program* p = parseInstruction();
+	if (isalpha(getNext())) {
+		if (parseIdentifier() == "else") {
+			Program* q = parseInstruction();
+			return new If(e, p, q);
+		} else
+			throw ParserException("'else' expected", position);
+	} else
+		throw ParserException("'else' expected", position);
+}
+
+Program* Parser::parseFor() {
+
+	Expression* e = parseSum();
+
+	Program* p = parseInstruction();
+	return new While(e, p);
+}
+
+Program* Parser::parseWhile() {
+	Expression* e = parseSum();
+	Program* p = parseInstruction();
+	return new While(e, p);
 }

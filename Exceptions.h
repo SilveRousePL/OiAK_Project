@@ -24,45 +24,58 @@ public:
 	}
 };
 
-class NullPointerException: public Exception {
-public:
-	NullPointerException(std::string comment) :
-			Exception(comment) {
-	}
-};
-
-class UnknownOperator: public Exception {
-public:
-	UnknownOperator(std::string comment) :
-			Exception(comment) {
-	}
-};
-
-class NotParsed: public Exception {
-public:
-	NotParsed(std::string comment) :
-			Exception(comment) {
-	}
-};
-
-class VariableNotFound: public Exception {
-public:
-	VariableNotFound(std::string comment) :
-			Exception(comment) {
-	}
-};
-
-class ArithmeticException: public Exception {
-public:
-	ArithmeticException(std::string comment) :
-			Exception(comment) {
-	}
-};
-
 class FileException: public Exception {
 public:
 	FileException(std::string comment) :
 			Exception(comment) {
+	}
+};
+
+class ProgramException: public Exception {
+protected:
+	size_t position;
+
+public:
+	ProgramException(std::string comment, size_t position) :
+			Exception(comment), position(position) {
+	}
+	size_t getPosition() {
+		return position;
+	}
+};
+
+class NullPointerException: public ProgramException {
+public:
+	NullPointerException(std::string comment, size_t position) :
+			ProgramException(comment, position) {
+	}
+};
+
+class UnknownOperator: public ProgramException {
+public:
+	UnknownOperator(std::string comment, size_t position) :
+			ProgramException(comment, position) {
+	}
+};
+
+class ParserException: public ProgramException {
+public:
+	ParserException(std::string comment, size_t position) :
+			ProgramException(comment, position) {
+	}
+};
+
+class VariableNotFound: public ProgramException {
+public:
+	VariableNotFound(std::string comment, size_t position) :
+			ProgramException(comment, position) {
+	}
+};
+
+class ArithmeticException: public ProgramException {
+public:
+	ArithmeticException(std::string comment, size_t position) :
+			ProgramException(comment, position) {
 	}
 };
 

@@ -28,10 +28,18 @@ public:
 			delete right;
 	}
 	int64_t get() override { //Pod wstawki ASM
-		if (symbol == "==")
+		if (symbol == "=")
 			return equal();
 		if (symbol == "!=")
 			return not_equal();
+		if (symbol == "<")
+			return less();
+		if (symbol == ">")
+			return greater();
+		if (symbol == "<=")
+			return less_or_equal();
+		if (symbol == ">=")
+			return greater_or_equal();
 		if (symbol == "%")
 			return mod();
 		if (symbol == "/")
@@ -42,7 +50,7 @@ public:
 			return sub();
 		if (symbol == "+")
 			return add();
-		throw UnknownOperator("Unknown operator!");
+		throw UnknownOperator("Unknown operator!", 0);
 	}
 private:
 	int64_t add() {
@@ -56,16 +64,28 @@ private:
 	}
 	int64_t div() {
 		if (right->get() == 0)
-			throw ArithmeticException("DIV/0!");
+			throw ArithmeticException("Divide by zero", 0);
 		return left->get() / right->get();
 	}
 	int64_t mod() {
 		if (right->get() == 0)
-			throw ArithmeticException("DIV/0!");
+			throw ArithmeticException("Divide by zero", 0);
 		return left->get() % right->get();
 		/*return [](T value, T modulus)->T {
 		 return value - trunc(value / modulus) * modulus;
 		 }(left->get(), right->get());*/
+	}
+	int64_t greater_or_equal() {
+		return left->get() >= right->get();
+	}
+	int64_t less_or_equal() {
+		return left->get() <= right->get();
+	}
+	int64_t greater() {
+		return left->get() > right->get();
+	}
+	int64_t less() {
+		return left->get() < right->get();
 	}
 	int64_t not_equal() {
 		return left->get() != right->get();

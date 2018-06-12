@@ -6,29 +6,67 @@
  */
 #include <iostream>
 #include "Parser.h"
+#include "File.h"
 
 int main(int argc, char** argv) {
 	std::string args(*argv);
 
 	std::map<std::string, int64_t>* memory = new std::map<std::string, int64_t>;
-	while (true) {
-		std::string command;
-		std::cout << "> ";
-		getline(std::cin, command);
-		if (command.length() == 0)
-			continue;
-		try {
-			Parser p(command, memory);
-			Expression * exp = p.parseExpression();
-			std::cout << "  = " << exp->get() << std::endl;
-		} catch (NotParsed & e) {
-			std::cout << e.what() << std::endl;
-		} catch (VariableNotFound & e) {
-			std::cout << e.what() << std::endl;
-		} catch (...) {
-			std::cout << " Unknown Error!" << std::endl;
-		}
+	/*	while (true) { // Calculator parser
+	 std::string command;
+	 std::cout << "> ";
+	 getline(std::cin, command);
+	 if (command.length() == 0)
+	 continue;
+	 try {
+	 Parser p(command, memory);
+	 Expression * exp = p.parseExpression();
+	 int64_t result = exp->get();
+	 std::cout << "  = " << result << std::endl;
+	 } catch (ParserException & e) {
+	 std::cerr << "  Parser error: " << e.what();
+	 } catch (UnknownOperator & e) {
+	 std::cerr << "  Parser error: " << e.what();
+	 } catch (VariableNotFound & e) {
+	 std::cerr << "  Program error: " << e.what();
+	 } catch (ArithmeticException & e) {
+	 std::cerr << "  Arithmetic error: " << e.what();
+	 } catch (...) {
+	 std::cerr << "  Unknown error";
+	 }
+	 }
+	 */
+	std::string fn;
+	if (argc == 1) {
+		std::cout << "Nazwa pliku: ";
+		getline(std::cin, fn);
+	} else if (argc == 2) {
+		fn = argv[1];
 	}
+	try {
+		File f(fn);
+		Parser p(f.getText(), memory);
+		Program* app = p.parseProgram();
+		app->execute(memory);
+		std::cout << std::endl;
+	} catch (FileException & e) {
+		std::cerr << "  File error: " << e.what() << std::endl;
+	} catch (ParserException & e) {
+		std::cerr << "  Parser error: " << e.what() << "(" << e.getPosition()
+				<< ")" << std::endl;
+	} catch (UnknownOperator & e) {
+		std::cerr << "  Parser error: " << e.what() << "(" << e.getPosition()
+				<< ")" << std::endl;
+	} catch (VariableNotFound & e) {
+		std::cerr << "  Program error: " << e.what() << "(" << e.getPosition()
+				<< ")" << std::endl;
+	} catch (ArithmeticException & e) {
+		std::cerr << "  Arithmetic error: " << e.what() << "("
+				<< e.getPosition() << ")" << std::endl;
+	} catch (...) {
+		std::cerr << "  Unknown error" << std::endl;
+	}
+
 	delete memory;
 
 	/*Expression * ex1 = new Constant(20);

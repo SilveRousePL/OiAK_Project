@@ -8,7 +8,6 @@
 #ifndef LANGUAGE_ASSIGN_H_
 #define LANGUAGE_ASSIGN_H_
 #include "Program.h"
-#include "../headers.h"
 #include <string>
 
 class Assign: public Program {
