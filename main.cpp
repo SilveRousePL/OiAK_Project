@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 	try {
 		File f(fn);
 		Parser p(f.getText(), memory);
-		Program* app = p.parseProgram();
+		Application* app = p.parseProgram();
 		app->execute(memory);
 		std::cout << std::endl;
 	} catch (FileException & e) {

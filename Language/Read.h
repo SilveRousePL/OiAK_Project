@@ -8,11 +8,11 @@
 #ifndef LANGUAGE_READ_H_
 #define LANGUAGE_READ_H_
 #include <memory>
-#include "Program.h"
 #include "Assign.h"
 #include "../Expressions/Constant.h"
+#include "Application.h"
 
-class Read: public Program {
+class Read: public Application {
 	std::string var;
 
 public:

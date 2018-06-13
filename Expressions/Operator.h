@@ -27,19 +27,15 @@ public:
 		if (right != nullptr)
 			delete right;
 	}
-	int64_t get() override { //Pod wstawki ASM
-		if (symbol == "=")
+	int64_t get() override {
+		if (symbol == "?")
 			return equal();
-		if (symbol == "!=")
+		if (symbol == "!")
 			return not_equal();
 		if (symbol == "<")
 			return less();
 		if (symbol == ">")
 			return greater();
-		if (symbol == "<=")
-			return less_or_equal();
-		if (symbol == ">=")
-			return greater_or_equal();
 		if (symbol == "%")
 			return mod();
 		if (symbol == "/")

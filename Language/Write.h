@@ -8,22 +8,27 @@
 #ifndef LANGUAGE_WRITE_H_
 #define LANGUAGE_WRITE_H_
 #include <memory>
-#include "Program.h"
 #include "../Expressions/Variable.h"
+#include "Application.h"
 
-class Write: public Program {
+class Write: public Application {
 	std::string var;
+	int mode;
 
 public:
-	Write(std::string var) :
-			var(var) {
+	Write(std::string var, int mode = 0) :
+			var(var), mode(mode) {
 	}
 	virtual ~Write() {
 	}
 	virtual void execute(std::map<std::string, int64_t>* memory) {
-		std::unique_ptr<Variable> exp(new Variable(var, memory));
-		int64_t value = exp->get();
-		std::cout << value << std::endl;
+		if (mode)
+			std::cout << var;
+		else {
+			std::unique_ptr<Variable> exp(new Variable(var, memory));
+			int64_t value = exp->get();
+			std::cout << value;
+		}
 	}
 };
 

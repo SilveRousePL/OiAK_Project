@@ -7,19 +7,18 @@
 
 #ifndef LANGUAGE_FOR_H_
 #define LANGUAGE_FOR_H_
-#include "Program.h"
-//#include "Assign.h"
 #include "../Expressions/Expression.h"
+#include "Application.h"
 
-class For: public Program {
+class For: public Application {
 	Assign* variable;
 	Expression* condition;
 	Assign* iteration;
-	Program* p_loop;
+	Application* p_loop;
 
 public:
 	For(Assign* variable, Expression* condition, Assign* iteration,
-			Program* p_loop) :
+			Application* p_loop) :
 			variable(variable), condition(condition), iteration(iteration), p_loop(
 					p_loop) {
 	}

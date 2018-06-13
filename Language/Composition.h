@@ -7,14 +7,14 @@
 
 #ifndef LANGUAGE_COMPOSITION_H_
 #define LANGUAGE_COMPOSITION_H_
-#include "Program.h"
+#include "Application.h"
 
-class Composition: public Program {
-	Program* left;
-	Program* right;
+class Composition: public Application {
+	Application* left;
+	Application* right;
 
 public:
-	Composition(Program* left, Program* right) :
+	Composition(Application* left, Application* right) :
 			left(left), right(right) {
 	}
 	virtual ~Composition() {

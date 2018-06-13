@@ -37,22 +37,22 @@ public:
 	Expression* parseExpression();
 	Expression* parseSum();
 	Expression* parseMult();
-//	Expression* parseLogic();
-//	Expression* parseComp();
+	Expression* parseComp();
 	Expression* parseTerm();
 	Expression* parseConstant();
 	Expression* parseVariable();
 	Expression* parseParen();
 
-	Program* parseAssign(std::string value);
-	Program* parseProgram();
-	Program* parseBlock();
-	Program* parseInstruction();
-	Program* parseRead();
-	Program* parseWrite();
-	Program* parseIf();
-	Program* parseFor();
-	Program* parseWhile();
+	Application* parseAssign(std::string value);
+	Application* parseProgram();
+	Application* parseBlock();
+	Application* parseInstruction();
+	Application* parseRead();
+	Application* parseVWrite();
+	Application* parseCWrite();
+	Application* parseIf();
+//	Program* parseFor();
+	Application* parseWhile();
 };
 
 #endif /* PARSER_H_ */

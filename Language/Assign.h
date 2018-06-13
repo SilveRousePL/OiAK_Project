@@ -7,10 +7,10 @@
 
 #ifndef LANGUAGE_ASSIGN_H_
 #define LANGUAGE_ASSIGN_H_
-#include "Program.h"
 #include <string>
+#include "Application.h"
 
-class Assign: public Program {
+class Assign: public Application {
 	std::string variable;
 	Expression* expression;
 

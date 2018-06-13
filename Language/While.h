@@ -7,14 +7,14 @@
 
 #ifndef LANGUAGE_WHILE_H_
 #define LANGUAGE_WHILE_H_
-#include "Program.h"
+#include "Application.h"
 
-class While: public Program {
+class While: public Application {
 	Expression* condition;
-	Program* p_loop;
+	Application* p_loop;
 
 public:
-	While(Expression* condition, Program* b) :
+	While(Expression* condition, Application* b) :
 			condition(condition), p_loop(b) {
 	}
 	virtual ~While() {

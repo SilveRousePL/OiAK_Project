@@ -7,9 +7,9 @@
 
 #ifndef LANGUAGE_SKIP_H_
 #define LANGUAGE_SKIP_H_
-#include "Program.h"
+#include "Application.h"
 
-class Skip: public Program {
+class Skip: public Application {
 public:
 	Skip() {
 	}

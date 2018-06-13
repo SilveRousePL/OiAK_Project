@@ -7,15 +7,15 @@
 
 #ifndef LANGUAGE_IF_H_
 #define LANGUAGE_IF_H_
-#include "Program.h"
+#include "Application.h"
 
-class If: public Program {
+class If: public Application {
 	Expression* condition;
-	Program* p_then;
-	Program* p_else;
+	Application* p_then;
+	Application* p_else;
 
 public:
-	If(Expression* condition, Program* p_then, Program* p_else) :
+	If(Expression* condition, Application* p_then, Application* p_else) :
 			condition(condition), p_then(p_then), p_else(p_else) {
 	}
 	virtual ~If() {
