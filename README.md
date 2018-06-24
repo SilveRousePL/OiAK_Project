@@ -1,6 +1,6 @@
 # OiAK_Project
 
-Wyrażenia arytmetyczne
+<pre>Wyrażenia arytmetyczne
 + - operator dodawania / alternatywy
 - - operator odejmowania
 * - operator mnożenia / koniunkcji
@@ -45,4 +45,6 @@ Prosi użytkownika o wpisanie liczby. Wpisana liczba jest nastepnie zapisywana d
 Bloki instrukcji:
 Instrukcje można grupować w bloki {}. Dzięki temu można wykonywać wiele instrukcji w ramach jednego warunku lub pętli.
 
+</pre>
 
+http://informatyka.wroc.pl/node/391
